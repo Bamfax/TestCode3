@@ -537,6 +537,13 @@ void baseflight_mavlink_send_updates(void)                                      
         
         if (!(cycleCNT % 3))                                                    // every 30ms (33Hz) for Attitude
         {
+            mavlink_msg_raw_imu_pack(
+                MLSystemID, MLComponentID, &msg2, micros(),						// Added IMU code as proposed by Rob here:
+                accADC[0],      accADC[1],      accADC[2],						// http://www.multiwii.com/forum/viewtopic.php?f=23&t=3524&start=1450#p64340
+                gyroADC[0],     gyroADC[1],     gyroADC[2],
+                magADCfloat[0], magADCfloat[1], magADCfloat[2]);
+            baseflight_mavlink_send_message(&msg2);
+
             mavlink_msg_attitude_pack(
                 MLSystemID, MLComponentID, &msg2, currentTimeMS, angle[0] * RADX10, -angle[1] * RADX10,
                 heading * RADX, 0.0f, 0.0f, 0.0f);
