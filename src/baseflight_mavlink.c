@@ -499,8 +499,11 @@ void baseflight_mavlink_send_updates(void)                                      
         {
             if (GPS_FIX) tmp = 3;                                               // Report 3Dfix if any fix
 	          mavlink_msg_gps_raw_int_pack(
-                MLSystemID , MLComponentID, &msg2, currentTime, (uint8_t)tmp, Real_GPS_coord[LAT], Real_GPS_coord[LON], GPS_altitude * 1000,
-                65535, 65535, GPS_speed, constrain(GPS_ground_course * 10, 0, 35999), GPS_numSat);
+                MLSystemID , MLComponentID, &msg2,
+                currentTime, (uint8_t)tmp,
+                Real_GPS_coord[LAT], Real_GPS_coord[LON],
+                GPS_altitude, (uint16_t)GPS_hdop, (uint16_t)GPS_vdop,
+                GPS_speed, (uint16_t)constrain(GPS_ground_course * 10, 0, 35999), GPS_numSat);
             baseflight_mavlink_send_message(&msg2);
             return;
         }

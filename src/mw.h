@@ -558,6 +558,8 @@ extern uint32_t GPS_distanceToHome;         // distance to home
 extern int32_t  GPS_directionToHome;        // direction to home
 extern uint16_t GPS_speed;                  // speed in cm/s
 extern volatile uint16_t GPS_altitude;      // altitude in m
+extern volatile uint32_t GPS_hdop; 			// GPS HDOP horizontal dilution of position in cm (m*100). If unknown, it is set to: UINT16_MAX
+extern volatile uint32_t GPS_vdop; 			// GPS VDOP vertical dilution of position in cm (m*100). If unknown, it is set to: UINT16_MAX
 extern uint8_t  GPS_update;                 // it's a binary toogle to distinct a GPS position update
 extern float    GPS_angle[2];               // it's the angles that must be applied for GPS correction
 extern float    Last_GPS_angle[2];

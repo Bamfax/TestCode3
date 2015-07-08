@@ -66,6 +66,8 @@ uint32_t GPS_distanceToHome;                                         // distance
 int32_t  GPS_directionToHome;                                        // direction to home or hol point in degrees
 uint16_t GPS_speed;                                                  // speed in cm/s
 volatile uint16_t GPS_altitude;                                      // altitude in m
+volatile uint32_t GPS_hdop;		                                     // GPS HDOP horizontal dilution of position in cm (m*100).
+volatile uint32_t GPS_vdop;		                                     // GPS VDOP vertical dilution of position in cm (m*100).
 uint8_t  GPS_update = 0;                                             // it's a binary toogle to distinct a GPS position update
 float    GPS_angle[2] = {0, 0};                                      // it's the angles that must be applied for GPS correction
 float    Last_GPS_angle[2] = {0, 0};

@@ -1151,7 +1151,7 @@ static void cliStatus(char *cmdline)
         }
         if (sensors(SENSOR_BARO))
         {
-            printf("\r\nHeight:");
+            printf("\r\nHight:");
             printf("\r\nMax Alt AGL: %d m", cfg.MaxAltMeter);
             printf("\r\nMin Alt AGL: %d m", cfg.MinAltMeter);
         }

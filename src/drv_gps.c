@@ -708,6 +708,8 @@ reset:
             IRQGPS_coord[LAT] = buffer.posllh.latitude;
             IRQGPS_coord[LON] = buffer.posllh.longitude;
             GPS_altitude = buffer.posllh.altitude_msl / 1000;                       // alt in m we don't buffer GPS_altitude since it not of importance
+			GPS_hdop = buffer.posllh.horizontal_accuracy;							// GPS HDOP horizontal dilution of position in mm (m*1000).
+			GPS_vdop = buffer.posllh.vertical_accuracy;								// GPS VDOP vertical dilution of position in mm (m*1000).
             GPS_FIX = nextfx;
             newpos    = true;
             break;
