@@ -553,13 +553,17 @@ extern volatile bool GPS_FIX;
 extern int32_t  Real_GPS_coord[2];          // RAW GPS Coords
 extern int32_t  GPS_home[2];
 extern int32_t  GPS_WP[2];                  // Currently used WP
+extern volatile uint32_t GPS_time;
+extern volatile int32_t GPS_time_nsec;
+extern volatile int16_t GPS_week;
 extern volatile uint8_t GPS_numSat;
 extern uint32_t GPS_distanceToHome;         // distance to home
 extern int32_t  GPS_directionToHome;        // direction to home
 extern uint16_t GPS_speed;                  // speed in cm/s
 extern volatile uint16_t GPS_altitude;      // altitude in m
-extern volatile uint32_t GPS_hdop; 			// GPS HDOP horizontal dilution of position in cm (m*100). If unknown, it is set to: UINT16_MAX
-extern volatile uint32_t GPS_vdop; 			// GPS VDOP vertical dilution of position in cm (m*100). If unknown, it is set to: UINT16_MAX
+extern volatile uint32_t GPS_hacc; 			// GPS horizontal accuracy
+extern volatile uint32_t GPS_vacc; 			// GPS vertical accuracy
+extern volatile uint16_t GPS_pdop;			// GPS position DOP
 extern uint8_t  GPS_update;                 // it's a binary toogle to distinct a GPS position update
 extern float    GPS_angle[2];               // it's the angles that must be applied for GPS correction
 extern float    Last_GPS_angle[2];

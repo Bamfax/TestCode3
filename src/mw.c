@@ -61,13 +61,17 @@ volatile bool  GPS_FIX = false;
 int32_t  Real_GPS_coord[2];                                          // RAW GPS Coords
 int32_t  GPS_home[2];
 int32_t  GPS_WP[2];                                                  // Currently used WP
+volatile uint32_t GPS_time;
+volatile int32_t GPS_time_nsec;
+volatile int16_t GPS_week;
 volatile uint8_t  GPS_numSat;
 uint32_t GPS_distanceToHome;                                         // distance to home
 int32_t  GPS_directionToHome;                                        // direction to home or hol point in degrees
 uint16_t GPS_speed;                                                  // speed in cm/s
 volatile uint16_t GPS_altitude;                                      // altitude in m
-volatile uint32_t GPS_hdop;		                                     // GPS HDOP horizontal dilution of position in cm (m*100).
-volatile uint32_t GPS_vdop;		                                     // GPS VDOP vertical dilution of position in cm (m*100).
+volatile uint32_t GPS_hacc;		                                     // GPS HDOP horizontal dilution of position in cm (m*100).
+volatile uint32_t GPS_vacc;		                                     // GPS VDOP vertical dilution of position in cm (m*100).
+volatile uint16_t GPS_pdop;
 uint8_t  GPS_update = 0;                                             // it's a binary toogle to distinct a GPS position update
 float    GPS_angle[2] = {0, 0};                                      // it's the angles that must be applied for GPS correction
 float    Last_GPS_angle[2] = {0, 0};

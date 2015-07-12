@@ -708,8 +708,8 @@ reset:
             IRQGPS_coord[LAT] = buffer.posllh.latitude;
             IRQGPS_coord[LON] = buffer.posllh.longitude;
             GPS_altitude = buffer.posllh.altitude_msl / 1000;                       // alt in m we don't buffer GPS_altitude since it not of importance
-			GPS_hdop = buffer.posllh.horizontal_accuracy;							// GPS HDOP horizontal dilution of position in mm (m*1000).
-			GPS_vdop = buffer.posllh.vertical_accuracy;								// GPS VDOP vertical dilution of position in mm (m*1000).
+			GPS_hacc = buffer.posllh.horizontal_accuracy;							// GPS horizontal accuracy
+			GPS_vacc = buffer.posllh.vertical_accuracy;								// GPS vertical accuracy
             GPS_FIX = nextfx;
             newpos    = true;
             break;
@@ -720,7 +720,11 @@ reset:
         case MSG_SOL:
             nextfx = (buffer.solution.fix_status & NAV_STATUS_FIX_VALID) && (buffer.solution.fix_type == FIX_3D || buffer.solution.fix_type == FIX_2D);
             if (!nextfx) GPS_FIX = false;
-            GPS_numSat = buffer.solution.satellites;                                // GPS_hdop = _buffer.solution.position_DOP;
+            GPS_time = buffer.solution.time;
+            GPS_time_nsec = buffer.solution.time_nsec;
+            GPS_week = buffer.solution.week;
+            GPS_numSat = buffer.solution.satellites;                                // how many SVs?
+            GPS_pdop = buffer.solution.position_DOP;								// GPS position DOP
             break;
         case MSG_VELNED:
             IRQGPS_speed = buffer.velned.speed_2d;                                  // cm/s speed_3d = _buffer.velned.speed_3d;  // cm/s
