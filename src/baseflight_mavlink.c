@@ -147,10 +147,11 @@ bool baseflight_mavlink_receive(char new)
 
 uint64_t gpstime2epoch(void)
 {
-	const uint64_t sec_per_week = 7ULL*86400ULL;											// 86400: Secs per day, 7 days per week
+	const uint64_t sec_per_week = 7ULL*86400ULL + 17ULL;									// 86400: Secs per day, 7 days per week, 17 leap seconds (crude, waiting to get better)
 	const uint64_t unix_offset = 315964800ULL;												// 3657 days between 01.01.1970 (epoch start) and 06.01.1980 (gps time start)
-	uint64_t fix_time_ms = unix_offset + GPS_week*sec_per_week + GPS_time;					// this is milliseconds, but:
-	return fix_time_ms;																		// microseconds needed
+
+	uint64_t fix_time_ms = unix_offset*1000 + GPS_week*sec_per_week*1000 + GPS_time;		// this is milliseconds, but:
+	return fix_time_ms*1000;																// microseconds needed
 }
 
 void baseflight_mavlink_handleMessage(mavlink_message_t *msg)
@@ -509,8 +510,11 @@ void baseflight_mavlink_send_updates(void)                                      
 	          mavlink_msg_gps_raw_int_pack(
                 MLSystemID , MLComponentID, &msg2,
                 gpstime2epoch(), (uint8_t)tmp,
+//                (uint64_t)GPS_time_nsec, (uint8_t)tmp,
+//                (uint64_t)GPS_time, (uint8_t)tmp,
                 Real_GPS_coord[LAT], Real_GPS_coord[LON],
                 GPS_altitude, GPS_pdop, 65535,
+//                GPS_altitude, GPS_pdop, (uint16_t)GPS_week,
                 GPS_speed, (uint16_t)constrain(GPS_ground_course * 10, 0, 35999), GPS_numSat);
             baseflight_mavlink_send_message(&msg2);
             return;
