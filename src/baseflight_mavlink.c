@@ -147,11 +147,12 @@ bool baseflight_mavlink_receive(char new)
 
 uint64_t gpstime2epoch(void)
 {
-	const uint64_t sec_per_week = 7ULL*86400ULL + 17ULL;									// 86400: Secs per day, 7 days per week, 17 leap seconds (crude, waiting to get better)
-	const uint64_t unix_offset = 315964800ULL;												// 3657 days between 01.01.1970 (epoch start) and 06.01.1980 (gps time start)
+	const uint64_t unix_offset = 3657ULL*86400ULL;											// 3657 days between 01.01.1970 (epoch start) and 06.01.1980 (gps time start)
+	const uint64_t sec_per_week = 7ULL*86400ULL;											// 86400: Secs per day, 7 days per week
+	const uint64_t leap_seconds_2015 = 17000ULL;											// 17 leap seconds currently (crude, waiting to get better)
 
-	uint64_t fix_time_ms = unix_offset*1000 + GPS_week*sec_per_week*1000 + GPS_time;		// this is milliseconds, but:
-	return fix_time_ms*1000;																// microseconds needed
+	uint64_t fix_time_ms = unix_offset*1000ULL + GPS_week*sec_per_week*1000ULL + GPS_time - leap_seconds_2015;		// this is milliseconds, but:
+	return fix_time_ms*1000ULL;																// we want microseconds
 }
 
 void baseflight_mavlink_handleMessage(mavlink_message_t *msg)
